@@ -1,0 +1,149 @@
+<div class="active-filters_container">
+  <div v-if="showActiveFilters" class="app_content-sub-title">
+    Active Filters
+  </div>
+
+  <div class="active-filters_list-row">
+    <div v-if="filterByBlocked" class="active-filters_filter-block">
+      <button @click="onRemoveClick('blocked')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('blocked')"
+      >
+        {{filterByBlockedSelection}}
+      </span>
+    </div>
+
+    <div v-if="filterByStarted" class="active-filters_filter-block">
+      <button @click="onRemoveClick('started')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('started')"
+      >
+        {{filterByStartedSelection}}
+      </span>
+    </div>
+
+    <div v-if="filterByPriority" class="active-filters_filter-block">
+      <button @click="onRemoveClick('priority')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('priority')"
+      >
+        Priority {{priorityOperator}}
+        {{services.conversion.convertPriority(priorityFilterValue)}}
+      </span>
+    </div>
+
+    <div v-if="filterByDifficulty" class="active-filters_filter-block">
+      <button @click="onRemoveClick('difficulty')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('difficulty')"
+      >
+        Difficulty {{difficultyOperator}}
+        {{services.conversion.convertDifficulty(difficultyFilterValue)}}
+      </span>
+    </div>
+
+    <div v-if="filterByLength" class="active-filters_filter-block">
+      <button @click="onRemoveClick('length')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('length')"
+      >
+        Length {{lengthOperator}}
+        {{services.conversion.convertLength(lengthFilterValue)}}
+      </span>
+    </div>
+
+    <div v-if="filterByCostEstimate" class="active-filters_filter-block">
+      <button @click="onRemoveClick('costEstimate')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('costEstimate')"
+      >
+        Cost Estimate {{costEstimateOperator}} ${{costEstimateFilterValue}}
+      </span>
+    </div>
+
+    <div v-if="filterByHasDeadline" class="active-filters_filter-block">
+      <button @click="onRemoveClick('hasDeadline')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('deadline')"
+      >
+        {{filterByHasDeadlineSelection}}
+      </span>
+    </div>
+
+    <div v-if="filterByDeadlineDate" class="active-filters_filter-block">
+      <button @click="onRemoveClick('deadlineDate')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('deadline')"
+      >
+        Deadline {{deadlineOperator}}
+        {{services.conversion.convertDateTime(deadlineFilterValue)}}
+      </span>
+    </div>
+
+    <div v-if="filterByCreated" class="active-filters_filter-block">
+      <button @click="onRemoveClick('created')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('created')"
+      >
+        Created {{createdOperator}}
+        {{services.conversion.convertDateTime(createdFilterValue)}}
+      </span>
+    </div>
+
+    <div v-if="filterByCompleted" class="active-filters_filter-block">
+      <button @click="onRemoveClick('completed')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('completed')"
+      >
+        Completed {{completedOperator}}
+        {{services.conversion.convertDateTime(completedFilterValue)}}
+      </span>
+    </div>
+
+    <div v-if="filterByCategory" class="active-filters_filter-block">
+      <button @click="onRemoveClick('category')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('category')"
+      >
+        Within Categories
+        <ul>
+          <li v-for="(category, idx) in selectedCategories" :key="idx">
+            {{category.name}}
+          </li>
+          <li v-if="selectedCategories.length === 0">None Selected</li>
+        </ul>
+      </span>
+    </div>
+
+    <div v-if="separateBlocked" class="active-filters_filter-block">
+      <button @click="onRemoveClick('separateBlocked')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('blocked')"
+      >
+        Group Blocked / Non-Blocked Projects Separately
+      </span>
+    </div>
+
+    <div v-if="separateStarted" class="active-filters_filter-block">
+      <button @click="onRemoveClick('separateStarted')">✖️</button>
+      <span
+        class="active-filters_pseudo-link"
+        @click="() => updateFilterViewSelection('started')"
+      >
+        Group Started / Non-Started Projects Separately
+      </span>
+    </div>
+  </div>
+</div>

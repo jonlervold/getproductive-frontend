@@ -1,0 +1,35 @@
+<div class="app_content-card">
+  <div class="app_content-titles">Categories</div>
+</div>
+
+<div class="app_content-card">
+  <div class="categories-manager_new-category">
+    <button
+      @click="onSubmitNewCategory"
+      :disabled="!newCategoryNameField"
+      title="Save New Category"
+    >
+      💾
+    </button>
+
+    <input
+      class="app_text-cursor"
+      type="text"
+      v-model="newCategoryNameField"
+      @keyup.enter="onSubmitNewCategory"
+    />
+  </div>
+
+  <div class="categories-manager_edit-categories">
+    <div v-for="category in sortedCategoriesList" :key="category.categoryId">
+      <CategoryComp
+        :savedName="category.name"
+        :categoryId="category.categoryId"
+      />
+    </div>
+
+    <div v-if="displayNoCategoriesIndicator">
+      You currently have no categories. Create a new one above.
+    </div>
+  </div>
+</div>

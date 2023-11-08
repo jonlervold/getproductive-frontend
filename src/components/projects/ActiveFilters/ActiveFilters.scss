@@ -1,0 +1,39 @@
+@import "@/global";
+
+.active-filters_container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 4;
+}
+
+.active-filters_list-row {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.active-filters_pseudo-link {
+    color: $basicLink;
+    cursor: pointer;
+}
+
+.active-filters_pseudo-link:hover {
+    color: $hoveredLink;
+}
+
+.active-filters_filter-block {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.active-filters_filter-block button {
+    height: 2rem;
+}
+
+.active-filters_filter-block ul {
+    margin: 0.3rem 0 0 0;
+}

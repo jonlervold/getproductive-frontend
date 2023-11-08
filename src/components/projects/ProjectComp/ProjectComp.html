@@ -1,0 +1,233 @@
+<template v-if="editMode || isNewProjectRow">
+  <td class="project-comp_static-background-cell">
+    <div class="project-comp_controls-cell">
+      <button @click="onSaveClick" title="Save Changes">💾</button>
+      <button @click="onCancelClick" title="Cancel Changes">✖️</button>
+    </div>
+  </td>
+
+  <td class="project-comp_static-background-cell">
+    <input
+      class="app_text-cursor"
+      type="text"
+      v-model="newName"
+      :placeholder="project.name"
+    />
+  </td>
+
+  <td
+    v-if="showingContinuing"
+    :style="services.conversion.convertBooleanToStyle(newIsStarted)"
+  >
+    <input type="checkbox" v-model="newIsStarted" />
+  </td>
+
+  <td
+    v-if="showingContinuing"
+    :style="services.conversion.convertBooleanToStyle(!newIsBlocked, 'red')"
+  >
+    <input type="checkbox" v-model="newIsBlocked" />
+  </td>
+
+  <td :style="services.conversion.convertPointScaleToStyle(newPriority)">
+    <select v-model="newPriority">
+      <option v-for="idx of 5" :key="6 - idx" :value="6 - idx">
+        {{services.conversion.convertPriority(6 - idx)}}
+      </option>
+    </select>
+  </td>
+
+  <td :style="services.conversion.convertPointScaleToStyle(newDifficulty)">
+    <select v-model="newDifficulty">
+      <option v-for="idx of 5" :key="6 - idx" :value="6 - idx">
+        {{services.conversion.convertDifficulty(6 - idx)}}
+      </option>
+    </select>
+  </td>
+
+  <td :style="services.conversion.convertPointScaleToStyle(newLength)">
+    <select v-model="newLength">
+      <option v-for="idx of 5" :key="6 - idx" :value="6 - idx">
+        {{services.conversion.convertLength(6 - idx)}}
+      </option>
+    </select>
+  </td>
+
+  <td :style="services.conversion.convertCostEstimateToStyle(newCostEstimate)">
+    <IntegerInput
+      :integerValue="newCostEstimate.toString()"
+      :updateIntegerValue="onUpdateNewCostEstimate"
+    />
+  </td>
+
+  <td :style="services.conversion.convertCreatedDateToStyle(newCreated)">
+    <DatePicker
+      v-model="newCreated"
+      input-class-name="app_date-picker"
+      teleport-center
+    />
+    <div>
+      {{ services.conversion.convertDatestampToRelativeDays(newCreated) }}
+    </div>
+  </td>
+
+  <td :style="services.conversion.convertDeadlineDateToStyle(newDeadline)">
+    <DatePicker
+      v-model="newDeadline"
+      input-class-name="app_date-picker"
+      teleport-center
+    />
+    <div>
+      {{ services.conversion.convertDatestampToRelativeDays(newDeadline) }}
+    </div>
+  </td>
+
+  <td
+    v-if="showingCompleted"
+    :style="services.conversion.convertBooleanToStyle(project.completed)"
+  >
+    <DatePicker
+      v-model="newCompleted"
+      input-class-name="app_date-picker"
+      teleport-center
+    />
+    <div>
+      {{ services.conversion.convertDatestampToRelativeDays(newCompleted) }}
+    </div>
+  </td>
+
+  <td class="project-comp_static-background-cell project-comp_category-picker">
+    <div
+      v-for="category of sortedCategoriesList"
+      class="project-comp_category-picker-item"
+    >
+      <input
+        type="checkbox"
+        :checked="categoryIsChecked(category.categoryId)"
+        @change="onCategoryCheckboxClick(category.categoryId)"
+      />
+      <div>{{category.name}}</div>
+    </div>
+    <div v-if="displayNoCategoriesIndicator">None Yet Created</div>
+  </td>
+
+  <td
+    class="project-comp_static-background-cell project-comp_comments-edit-cell"
+  >
+    <textarea
+      class="project-comp_comments-edit-field"
+      v-model="newComments"
+      :placeholder="project.comments"
+    />
+  </td>
+</template>
+
+<template v-else>
+  <template v-if="!showingTrash">
+    <td class="project-comp_static-background-cell">
+      <div class="project-comp_controls-cell">
+        <button
+          v-if="project.completed"
+          @click="onEditCompleteStatusClick"
+          title="Mark Incomplete"
+        >
+          🚫
+        </button>
+        <button v-else @click="onEditCompleteStatusClick" title="Mark Complete">
+          ✅
+        </button>
+
+        <button
+          @click="onEditModeActivation"
+          :disabled="disableEdits"
+          title="Edit Project"
+        >
+          ✏️
+        </button>
+
+        <button @click="onEditTrashedStatus" title="Move to Trash">🗑️</button>
+      </div>
+    </td>
+  </template>
+
+  <template v-else>
+    <td class="project-comp_static-background-cell">
+      <div class="project-comp_controls-cell">
+        <button @click="onEditTrashedStatus" title="Remove from Trash">
+          🔙
+        </button>
+        <button @click="onDeleteProject" title="Permanently Delete">☠️</button>
+      </div>
+    </td>
+  </template>
+
+  <td class="project-comp_static-background-cell project-comp_project-name">
+    {{ services.conversion.convertHtmlEncodedString(project.name) }}
+  </td>
+
+  <td
+    :style="services.conversion.convertBooleanToStyle(project.isStarted)"
+    v-if="showingContinuing"
+  >
+    {{ services.conversion.convertBooleanToYesNo(project.isStarted) }}
+  </td>
+
+  <td
+    :style="services.conversion.convertBooleanToStyle(!project.isBlocked, 'red')"
+    v-if="showingContinuing"
+  >
+    {{ services.conversion.convertBooleanToYesNo(project.isBlocked) }}
+  </td>
+
+  <td :style="services.conversion.convertPointScaleToStyle(project.priority)">
+    {{ services.conversion.convertPriority(project.priority) }}
+  </td>
+
+  <td :style="services.conversion.convertPointScaleToStyle(project.difficulty)">
+    {{ services.conversion.convertDifficulty(project.difficulty) }}
+  </td>
+
+  <td :style="services.conversion.convertPointScaleToStyle(project.length)">
+    {{ services.conversion.convertLength(project.length) }}
+  </td>
+
+  <td
+    :style="services.conversion.convertCostEstimateToStyle(project.costEstimate)"
+  >
+    ${{ project.costEstimate }}
+  </td>
+
+  <td :style="services.conversion.convertCreatedDateToStyle(project.created)">
+    <div>{{ services.conversion.convertDateTime(project.created) }}</div>
+    <div>
+      {{ services.conversion.convertDatestampToRelativeDays(project.created) }}
+    </div>
+  </td>
+
+  <td :style="services.conversion.convertDeadlineDateToStyle(project.deadline)">
+    <div>{{ services.conversion.convertDateTime(project.deadline) }}</div>
+    <div>
+      {{ services.conversion.convertDatestampToRelativeDays(project.deadline) }}
+    </div>
+  </td>
+
+  <td
+    v-if="showingCompleted"
+    :style="services.conversion.convertBooleanToStyle(project.completed)"
+  >
+    <div>{{ services.conversion.convertDateTime(project.completed) }}</div>
+    <div>
+      {{ services.conversion.convertDatestampToRelativeDays(project.completed)
+      }}
+    </div>
+  </td>
+
+  <td class="project-comp_static-background-cell">
+    {{ services.conversion.convertCategories(categoriesDict, project.categories)
+    }}
+  </td>
+
+  <td class="project-comp_static-background-cell project-comp_comments-readout">
+    {{ services.conversion.convertHtmlEncodedString(project.comments) }}
+  </td>
+</template>

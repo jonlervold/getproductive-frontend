@@ -1,0 +1,26 @@
+@import "@/global";
+
+.filter-manager_container {
+    background-color: $mediumBg;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+}
+
+.filter-manager_column-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.filter-manager_filter-type-selector {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filter-manager_option-row {
+    display: flex;
+    gap: 0.3rem;
+    align-items: center;
+}

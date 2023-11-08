@@ -1,0 +1,15 @@
+<div class="app_modal-container">
+  <div>
+    Are you sure you wish to delete the project "{{projectToDelete.name}}"?
+  </div>
+
+  <div>This action cannot be undone.</div>
+
+  <button @click="() => this.confirmDeleteProject()">
+    Yes, Permanently Delete
+  </button>
+
+  <button @click="() => this.updateShowProjectDeleteConfirmModal(false)">
+    Cancel
+  </button>
+</div>

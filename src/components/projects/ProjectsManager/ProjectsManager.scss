@@ -1,0 +1,9 @@
+@import "@/global";
+
+.projects-manager_filter-comps {
+    padding: $contentPadding;
+    background-color: $mediumBg;
+    box-shadow: $shadow;
+    display: flex;
+    gap: 1rem;
+}

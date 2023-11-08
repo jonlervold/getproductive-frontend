@@ -1,0 +1,38 @@
+<div class="app_container">
+  <div class="app_header-and-content">
+    <HeaderComp />
+
+    <div class="app_content">
+      <router-view />
+    </div>
+  </div>
+
+  <FooterComp />
+
+  <ModalDimmer v-if="displayDimmer" />
+
+  <ModalDisplay v-if="isLoading" :borderClickHandler="() => {}">
+    <div class="app_modal-container">{{loadingText}}</div>
+  </ModalDisplay>
+
+  <ModalDisplay
+    v-if="showInfoModal"
+    :borderClickHandler="() => updateShowInfoModal(false)"
+  >
+    <InfoDisplay />
+  </ModalDisplay>
+
+  <ModalDisplay
+    v-if="showProjectDeleteConfirmModal"
+    :borderClickHandler="() => this.updateShowProjectDeleteConfirmModal(false)"
+  >
+    <ProjectDeleteConfirm />
+  </ModalDisplay>
+
+  <ModalDisplay
+    v-if="showCategoryDeleteConfirmModal"
+    :borderClickHandler="() => this.updateShowCategoryDeleteConfirmModal(false)"
+  >
+    <CategoryDeleteConfirm />
+  </ModalDisplay>
+</div>

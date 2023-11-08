@@ -1,0 +1,8 @@
+<input
+  type="text"
+  class="app_text-cursor integer-input_input"
+  :value="integerValue"
+  @input="updateIntegerValue"
+  @blur="cleanAndUpdateInteger"
+  @keyup.enter="cleanAndUpdateInteger"
+/>

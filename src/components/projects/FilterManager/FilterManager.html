@@ -1,0 +1,279 @@
+<div class="filter-manager_container">
+  <div class="app_content-sub-title">Filter Options</div>
+
+  <div class="filter-manager_filter-type-selector">
+    <select :value="filterViewSelection" @change="onFilterViewSelectionChange">
+      <option value="none">-</option>
+      <option value="started">Started</option>
+      <option value="blocked">Blocked</option>
+      <option value="priority">Priority</option>
+      <option value="difficulty">Difficulty</option>
+      <option value="length">Length</option>
+      <option value="costEstimate">Cost Estimate</option>
+      <option value="created">Created</option>
+      <option value="deadline">Deadline</option>
+      <option value="completed">Completed</option>
+      <option value="category">Category</option>
+    </select>
+    <button
+      v-if="showHideFilterOptionsButton"
+      @click="onHideFilterOptionsClick"
+    >
+      Hide Options
+    </button>
+  </div>
+
+  <div v-if="showBlocked" class="filter-manager_column-settings">
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="filterByBlocked"
+        @change="onFilterByBlockedChange"
+      />
+      Filter by Blocked
+      <select
+        :value="filterByBlockedSelection"
+        @change="onFilterByBlockedSelectionChange"
+      >
+        <option value="Not Blocked">Not Blocked</option>
+        <option value="Blocked">Blocked</option>
+      </select>
+    </div>
+
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="separateBlocked"
+        @change="onSeparateBlockedChange"
+      />
+      Push Blocked Projects to Bottom
+    </div>
+  </div>
+
+  <div v-if="showStarted" class="filter-manager_column-settings">
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="filterByStarted"
+        @change="onFilterByStartedChange"
+      />
+      Filter by Started
+      <select
+        :value="filterByStartedSelection"
+        @change="onFilterByStartedSelectionChange"
+      >
+        <option value="Started">Started</option>
+        <option value="Not Started">Not Started</option>
+      </select>
+    </div>
+
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="separateStarted"
+        @change="onSeparateStartedChange"
+      />
+      Push Non-Started Projects to Bottom
+    </div>
+  </div>
+
+  <div v-if="showPriority" class="filter-manager_column-settings">
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="filterByPriority"
+        @change="onFilterByPriorityChange"
+      />
+      Filter by Priority
+
+      <select :value="priorityOperator" @change="onPriorityOperatorChange">
+        <option value=">=">&gt=</option>
+        <option value="=">=</option>
+        <option value="<=">&lt=</option>
+      </select>
+      <select
+        :value="priorityFilterValue"
+        @change="onPriorityFilterValueChange"
+      >
+        <option v-for="idx of 5" :key="6 - idx" :value="6 - idx">
+          {{services.conversion.convertPriority(6 - idx)}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div v-if="showDifficulty" class="filter-manager_column-settings">
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="filterByDifficulty"
+        @change="onFilterByDifficultyChange"
+      />
+      Filter by Difficulty
+
+      <select :value="difficultyOperator" @change="onDifficultyOperatorChange">
+        <option value=">=">&gt=</option>
+        <option value="=">=</option>
+        <option value="<=">&lt=</option>
+      </select>
+      <select
+        :value="difficultyFilterValue"
+        @change="onDifficultyFilterValueChange"
+      >
+        <option v-for="idx of 5" :key="6 - idx" :value="6 - idx">
+          {{services.conversion.convertDifficulty(6 - idx)}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div v-if="showLength" class="filter-manager_column-settings">
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="filterByLength"
+        @change="onFilterByLengthChange"
+      />
+      Filter by Length
+
+      <select :value="lengthOperator" @change="onLengthOperatorChange">
+        <option value=">=">&gt=</option>
+        <option value="=">=</option>
+        <option value="<=">&lt=</option>
+      </select>
+      <select :value="lengthFilterValue" @change="onLengthFilterValueChange">
+        <option v-for="idx of 5" :key="6 - idx" :value="6 - idx">
+          {{services.conversion.convertLength(6 - idx)}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div v-if="showCostEstimate" class="filter-manager_column-settings">
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="filterByCostEstimate"
+        @change="onFilterByCostEstimateChange"
+      />
+      Filter by Cost Estimate
+
+      <select
+        :value="costEstimateOperator"
+        @change="onCostEstimateOperatorChange"
+      >
+        <option value=">=">&gt=</option>
+        <option value="=">=</option>
+        <option value="<=">&lt=</option>
+      </select>
+      <IntegerInput
+        :integerValue="costEstimateFilterValue.toString()"
+        :updateIntegerValue="onCostEstimateFilterValueChange"
+      />
+    </div>
+  </div>
+
+  <div v-if="showDeadline" class="filter-manager_column-settings">
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="filterByHasDeadline"
+        @change="onFilterByHasDeadlineChange"
+      />
+      Filter by Deadline Status
+      <select
+        :value="filterByHasDeadlineSelection"
+        @change="onFilterByHasDeadlineSelectionChange"
+      >
+        <option value="Has Deadline">Has Deadline</option>
+        <option value="No Deadline Set">No Deadline</option>
+      </select>
+    </div>
+
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="filterByDeadlineDate"
+        @change="onFilterByDeadlineDateChange"
+      />
+      Filter by Deadline Date
+
+      <select :value="deadlineOperator" @change="onDeadlineOperatorChange">
+        <option value="After">After</option>
+        <option value="Before">Before</option>
+      </select>
+      <DatePicker
+        :model-value="deadlineFilterValue"
+        @update:model-value="onDeadlineFilterValueChange"
+        input-class-name="app_date-picker"
+        teleport-center
+      />
+    </div>
+  </div>
+
+  <div v-if="showCreated" class="filter-manager_column-settings">
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="filterByCreated"
+        @change="onFilterByCreatedChange"
+      />
+      Filter by Created
+
+      <select :value="createdOperator" @change="onCreatedOperatorChange">
+        <option value="After">After</option>
+        <option value="Before">Before</option>
+      </select>
+      <DatePicker
+        :model-value="createdFilterValue"
+        @update:model-value="onCreatedFilterValueChange"
+        input-class-name="app_date-picker"
+        teleport-center
+      />
+    </div>
+  </div>
+
+  <div v-if="showCompleted" class="filter-manager_column-settings">
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="filterByCompleted"
+        @change="onFilterByCompletedChange"
+      />
+      Filter by Completed
+
+      <select :value="completedOperator" @change="onCompletedOperatorChange">
+        <option value="After">After</option>
+        <option value="Before">Before</option>
+      </select>
+      <DatePicker
+        :model-value="completedFilterValue"
+        @update:model-value="onCompletedFilterValueChange"
+        input-class-name="app_date-picker"
+        teleport-center
+      />
+    </div>
+  </div>
+
+  <div v-if="showCategory" class="filter-manager_column-settings">
+    <div class="filter-manager_option-row">
+      <input
+        type="checkbox"
+        :checked="filterByCategory"
+        @change="onFilterByCategoryChange"
+      />
+      Filter by Category
+      <button @click="onSelectAllCategories">All</button>
+      <button @click="onDeselectAllCategories">None</button>
+    </div>
+
+    <div v-for="(category, idx) in sortedCategoriesList" :key="idx">
+      <input
+        type="checkbox"
+        :checked="categoryFilterIsChecked(category.categoryId)"
+        @change="onCategoryFilterCheckboxClick(category.categoryId)"
+      />
+      {{category.name}}
+    </div>
+  </div>
+</div>

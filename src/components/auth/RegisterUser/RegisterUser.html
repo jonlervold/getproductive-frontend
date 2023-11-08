@@ -1,0 +1,61 @@
+<div class="app_content-card">
+  <div class="app_content-titles">Register New User</div>
+</div>
+
+<div class="app_content-card">
+  <div class="app_text-cursor-group">
+    <table>
+      <tr>
+        <td>Email</td>
+        <td>
+          <input
+            type="text"
+            v-model="emailField"
+            @keyup.enter="onSubmitNewUser"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Verify Email</td>
+        <td>
+          <input
+            type="text"
+            v-model="emailVerifyField"
+            @keyup.enter="onSubmitNewUser"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Password</td>
+        <td>
+          <input
+            type="password"
+            v-model="passwordField"
+            @keyup.enter="onSubmitNewUser"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Verify Password</td>
+        <td>
+          <input
+            type="password"
+            v-model="passwordVerifyField"
+            @keyup.enter="onSubmitNewUser"
+          />
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div>
+    <button @click="onSubmitNewUser">Submit</button>
+  </div>
+
+  <div v-if="submissionProblems.length > 0">
+    {{submissionProblems.join(' ')}}
+  </div>
+</div>

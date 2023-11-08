@@ -1,0 +1,38 @@
+@import "@/global";
+
+.header-comp_title {
+    font-size: 2rem;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.header-comp_router-links {
+    background-color: $mediumBg;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    box-shadow: 0 0.4rem 0.2rem rgb(95, 95, 95);
+}
+
+.header-comp_link-blocks {
+    width: 33%;
+    display: flex;
+    gap: 10%;
+}
+
+.header-comp_right-link-block {
+    justify-content: end;
+}
+
+@media (max-width: 500px) {
+    .header-comp_router-links {
+        flex-direction: column;
+        align-items: center;
+      }
+
+    .header-comp_link-blocks {
+        flex-direction: column;
+        align-items: center;
+    }
+}

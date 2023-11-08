@@ -1,0 +1,40 @@
+@import "@/global";
+
+.project-comp_static-background-cell {
+    background-color: $mediumBg;
+}
+
+.project-comp_project-name {
+    font-weight: 600;
+    font-style: italic;
+}
+
+.project-comp_controls-cell {
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+}
+
+.project-comp_comments-edit-cell {
+    height: 5rem;
+}
+
+.project-comp_comments-edit-field {
+    width: 95%;
+    height: 90%;
+    box-sizing: border-box;
+}
+
+.project-comp_comments-readout {
+    max-width: 20rem; 
+    word-wrap: break-word;
+}
+
+.project-comp_category-picker {
+    text-align: left;
+}
+
+.project-comp_category-picker-item {
+    display: flex;
+    align-items: center;
+}

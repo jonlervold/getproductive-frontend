@@ -1,0 +1,18 @@
+<div class="app_modal-container">
+  <div>
+    Are you sure you wish to permanently delete the category
+    "{{categoryToDelete.name}}"?
+  </div>
+
+  <div>It will be removed from all projects to which it is applied.</div>
+
+  <div>This action cannot be undone.</div>
+
+  <button @click="() => this.confirmDeleteCategory()">
+    Yes, Permanently Delete
+  </button>
+
+  <button @click="() => this.updateShowCategoryDeleteConfirmModal(false)">
+    Cancel
+  </button>
+</div>

@@ -1,0 +1,51 @@
+<div class="app_content-card">
+  <div class="app_content-titles">Log In</div>
+</div>
+
+<div class="app_content-card">
+  <div class="app_content-sub-title">Welcome to Get Productive!</div>
+  <div>
+    Get Productive! is a tool for quickly tracking, categorizing, sorting, and
+    filtering all sorts of projects and tasks.
+  </div>
+  <div>
+    Figure out what makes the most sense to do with your time right now.
+  </div>
+
+  <div class="app_text-cursor-group">
+    <table>
+      <tr>
+        <td>Username</td>
+        <td>
+          <input
+            type="text"
+            v-model="emailField"
+            @keyup.enter="onSubmitLogIn"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td>Password</td>
+        <td>
+          <input
+            type="password"
+            v-model="passwordField"
+            @keyup.enter="onSubmitLogIn"
+          />
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div>
+    <button @click="onSubmitLogIn">
+      <div>Log In</div>
+      <div class="login-prompt_cookie-disclaimer">(Requires Cookies)</div>
+    </button>
+  </div>
+
+  <div v-if="submissionProblems.length > 0">
+    {{submissionProblems.join(' ')}}
+  </div>
+</div>

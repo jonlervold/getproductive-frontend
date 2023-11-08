@@ -1,0 +1,67 @@
+@import "@/global";
+
+.projects-table_container {
+  overflow: auto;
+  box-shadow: $shadow;
+}
+
+.projects-table_projects-table {
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+  border-collapse: collapse;
+  border: none;
+}
+
+.projects-table_projects-table td {
+  border: 2px solid $darkBg;
+}
+
+.projects-table_projects-table tr:first-child td {
+  border-top: none;
+}
+
+.projects-table_projects-table tr:last-child td {
+  border-bottom: none;
+}
+
+.projects-table_projects-table tr td:first-child {
+  border-left: none;
+}
+
+.projects-table_projects-table tr td:last-child {
+  border-right: none;
+}
+
+.projects-table_projects-table tr {
+  height: 2rem;
+}
+
+.projects-table_header-cell {
+  background-color: $lightBg;
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.projects-table_controls-cell {
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+}
+
+.projects-table_header-clickable {
+  cursor: pointer;
+  color: $basicLink;
+}
+
+.projects-table_header-clickable:hover {
+  cursor: pointer;
+  color: $hoveredLink;
+}
+
+.projects-table_none-to-display {
+  background-color: $mediumBg;
+  font-size: 1rem;
+}

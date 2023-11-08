@@ -1,0 +1,17 @@
+@import "@/global";
+
+.footer-comp_container {
+    position: relative;
+    font-size: 1rem;
+    display: flex;
+    gap: 2rem;
+    bottom: 0;
+}
+
+@media (max-width: 500px) {
+    .footer-comp_container {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+      }
+}

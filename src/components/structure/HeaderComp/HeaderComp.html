@@ -1,0 +1,28 @@
+<div>
+  <div class="app_header-and-footer header-comp_title">Get Productive!</div>
+
+  <div class="header-comp_router-links">
+    <div class="header-comp_link-blocks">
+      <template v-if="isLoggedIn">
+        <router-link to="/">Projects</router-link>
+
+        <router-link to="/categories-manager">Categories</router-link>
+      </template>
+
+      <router-link v-else to="/">Log In</router-link>
+    </div>
+
+    <div class="header-comp_link-blocks header-comp_right-link-block">
+      <template v-if="isLoggedIn">
+        <router-link to="/change-password">{{email}}</router-link>
+        <router-link to="/logout">Logout</router-link>
+      </template>
+
+      <template v-else>
+        <router-link to="/register">Register</router-link>
+
+        <router-link to="/forgot-password">Forgot&nbsp;Password</router-link>
+      </template>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div v-if="editMode" class="category-comp_row">
+  <button
+    @click="onSubmitSaveEditCategory"
+    :disabled="!newName || newName === savedName"
+    title="Save Edit"
+  >
+    💾
+  </button>
+
+  <button @click="onCancelEditCategoryClick" title="Cancel Edit">✖️</button>
+
+  <input
+    type="text"
+    class="app_text-cursor"
+    v-model="newName"
+    :placeholder="savedName"
+    @keyup.enter="onSubmitSaveEditCategory"
+  />
+</div>
+
+<div v-else class="category-comp_row">
+  <button @click="onEditCategoryClick" title="Edit Category">✏️</button>
+
+  <button @click="onDeleteCategoryClick" title="Permanently Delete">☠️</button
+  >{{savedName}}
+</div>

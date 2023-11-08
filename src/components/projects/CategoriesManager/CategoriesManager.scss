@@ -1,0 +1,12 @@
+@import "@/global";
+
+.categories-manager_new-category {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.categories-manager_edit-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}

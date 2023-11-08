@@ -1,0 +1,160 @@
+<div class="projects-table_container">
+  <table class="projects-table_projects-table">
+    <tr>
+      <td class="projects-table_header-cell">
+        <div class="projects-table_controls-cell">
+          <select
+            :value="statusDisplaySelection"
+            @change="onStatusDisplaySelectionChange"
+          >
+            <option value="all">All Untrashed</option>
+            <option value="continuing">Continuing</option>
+            <option value="completed">Completed</option>
+            <option value="trash">Trashed</option>
+          </select>
+
+          <button
+            @click="onAddNewProjectActivation"
+            :disabled="showAddProjectRow"
+            title="Add New Project"
+          >
+            🆕
+          </button>
+        </div>
+      </td>
+
+      <td
+        class="projects-table_header-cell"
+        :class="editModeActivated ? '' : 'projects-table_header-clickable'"
+        @click="onSortClick('name')"
+        :style="boldIfSelected('name')"
+      >
+        <span> Name {{showSortCaret('name')}} </span>
+      </td>
+
+      <td
+        v-if="showingContinuing"
+        class="projects-table_header-cell"
+        :class="editModeActivated ? '' : 'projects-table_header-clickable'"
+        @click="onSortClick('isStarted')"
+        :style="boldIfSelected('isStarted')"
+      >
+        <span> Started {{showSortCaret('isStarted')}} </span>
+      </td>
+
+      <td
+        v-if="showingContinuing"
+        class="projects-table_header-cell"
+        :class="editModeActivated ? '' : 'projects-table_header-clickable'"
+        @click="onSortClick('isBlocked')"
+        :style="boldIfSelected('isBlocked')"
+      >
+        <span> Blocked {{showSortCaret('isBlocked')}} </span>
+      </td>
+
+      <td
+        class="projects-table_header-cell"
+        :class="editModeActivated ? '' : 'projects-table_header-clickable'"
+        @click="onSortClick('priority')"
+        :style="boldIfSelected('priority')"
+      >
+        <span> Priority {{showSortCaret('priority')}} </span>
+      </td>
+
+      <td
+        class="projects-table_header-cell"
+        :class="editModeActivated ? '' : 'projects-table_header-clickable'"
+        @click="onSortClick('difficulty')"
+        :style="boldIfSelected('difficulty')"
+      >
+        <span> Difficulty {{showSortCaret('difficulty')}} </span>
+      </td>
+
+      <td
+        class="projects-table_header-cell"
+        :class="editModeActivated ? '' : 'projects-table_header-clickable'"
+        @click="onSortClick('length')"
+        :style="boldIfSelected('length')"
+      >
+        <span> Length {{showSortCaret('length')}} </span>
+      </td>
+
+      <td
+        class="projects-table_header-cell"
+        :class="editModeActivated ? '' : 'projects-table_header-clickable'"
+        @click="onSortClick('costEstimate')"
+        :style="boldIfSelected('costEstimate')"
+      >
+        <span> Cost {{showSortCaret('costEstimate')}} </span>
+      </td>
+
+      <td
+        class="projects-table_header-cell"
+        :class="editModeActivated ? '' : 'projects-table_header-clickable'"
+        @click="onSortClick('created')"
+        :style="boldIfSelected('created')"
+      >
+        <span> Created {{showSortCaret('created')}} </span>
+      </td>
+
+      <td
+        class="projects-table_header-cell"
+        :class="editModeActivated ? '' : 'projects-table_header-clickable'"
+        @click="onSortClick('deadline')"
+        :style="boldIfSelected('deadline')"
+      >
+        <span> Deadline {{showSortCaret('deadline')}} </span>
+      </td>
+
+      <td
+        v-if="showingCompleted"
+        class="projects-table_header-cell"
+        :class="editModeActivated ? '' : 'projects-table_header-clickable'"
+        @click="onSortClick('completed')"
+        :style="boldIfSelected('completed')"
+      >
+        <span> Completed {{showSortCaret('completed')}} </span>
+      </td>
+
+      <td class="projects-table_header-cell">Categories</td>
+
+      <td class="projects-table_header-cell">Comments</td>
+    </tr>
+
+    <tr v-if="showAddProjectRow">
+      <ProjectComp
+        :isNewProjectRow="true"
+        @addNewProjectDeactivation="onAddNewProjectDeactivation"
+      />
+    </tr>
+
+    <tr v-for="project in projectListSorted" :key="project.projectId">
+      <ProjectComp
+        @editModeActivation="onEditModeActivation"
+        @editModeDeactivation="onEditModeDeactivation"
+        :project="project"
+        :disableEdits="editModeActivated"
+      />
+    </tr>
+
+    <tr v-if="showNoneToDisplayIndicator">
+      <td class="projects-table_none-to-display" colspan="13">
+        <span v-if="noProjectsMeetingFilterCriteria">
+          You have no projects that meet the current filtering criteria.
+        </span>
+
+        <span v-if="noProjectsAtAll">
+          You have no projects. Click
+          <button
+            @click="onAddNewProjectActivation"
+            :disabled="showAddProjectRow"
+            title="Add New Project"
+          >
+            🆕
+          </button>
+          to add one!
+        </span>
+      </td>
+    </tr>
+  </table>
+</div>
