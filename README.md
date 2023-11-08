@@ -2,6 +2,10 @@
 
 Get Productive! is a tool for quickly tracking, categorizing, sorting, and filtering all sorts of projects and tasks.
 
+Backend is served via the corresponding PHP repo.
+
+Live build at https://getproductive.net
+
 ## Project setup
 
 ```
@@ -19,7 +23,3 @@ npm run serve
 ```
 npm run build
 ```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
