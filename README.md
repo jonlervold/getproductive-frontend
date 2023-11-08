@@ -2,7 +2,7 @@
 
 Get Productive! is a tool for quickly tracking, categorizing, sorting, and filtering all sorts of projects and tasks.
 
-Backend is served via the corresponding PHP repo.
+Backend is served via the corresponding PHP repo. (Private for data security reasons.)
 https://github.com/jonlervold/getproductive-backend
 
 Live build at https://getproductive.net
