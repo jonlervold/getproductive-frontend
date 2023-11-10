@@ -60,8 +60,8 @@ export default {
         this.project.comments
       ),
       newCostEstimate: this.project.costEstimate,
-      newIsBlocked: this.project.isBlocked,
-      newIsStarted: this.project.isStarted,
+      newIsBlocked: Boolean(this.project.isBlocked),
+      newIsStarted: Boolean(this.project.isStarted),
       newPriority: this.project.priority,
       newDifficulty: this.project.difficulty,
       newLength: this.project.length,
