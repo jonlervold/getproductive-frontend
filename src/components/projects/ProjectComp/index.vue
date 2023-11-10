@@ -134,7 +134,7 @@ export default {
       if (res.status === 201) {
         this.updateProjectList(res.data);
         this.sortAndFilterProjects();
-        this.updateStatusDisplaySelection("continuing");
+        this.updateStatusDisplaySelection("ongoing");
         this.$emit("addNewProjectDeactivation");
       } else {
         this.updateInfoText("Failed to save project!");

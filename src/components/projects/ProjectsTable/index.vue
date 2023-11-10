@@ -97,7 +97,7 @@ export default {
     },
 
     onAddNewProjectActivation: function () {
-      this.updateStatusDisplaySelection("continuing");
+      this.updateStatusDisplaySelection("ongoing");
       this.showAddProjectRow = true;
     },
 

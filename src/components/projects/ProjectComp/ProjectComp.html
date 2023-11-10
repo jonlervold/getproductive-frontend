@@ -16,14 +16,14 @@
   </td>
 
   <td
-    v-if="showingContinuing"
+    v-if="showingOngoing"
     :style="services.conversion.convertBooleanToStyle(newIsStarted)"
   >
     <input type="checkbox" v-model="newIsStarted" />
   </td>
 
   <td
-    v-if="showingContinuing"
+    v-if="showingOngoing"
     :style="services.conversion.convertBooleanToStyle(!newIsBlocked, 'red')"
   >
     <input type="checkbox" v-model="newIsBlocked" />
@@ -167,14 +167,14 @@
 
   <td
     :style="services.conversion.convertBooleanToStyle(project.isStarted)"
-    v-if="showingContinuing"
+    v-if="showingOngoing"
   >
     {{ services.conversion.convertBooleanToYesNo(project.isStarted) }}
   </td>
 
   <td
     :style="services.conversion.convertBooleanToStyle(!project.isBlocked, 'red')"
-    v-if="showingContinuing"
+    v-if="showingOngoing"
   >
     {{ services.conversion.convertBooleanToYesNo(project.isBlocked) }}
   </td>

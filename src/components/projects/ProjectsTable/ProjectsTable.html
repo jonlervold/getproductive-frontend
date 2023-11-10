@@ -8,7 +8,7 @@
             @change="onStatusDisplaySelectionChange"
           >
             <option value="all">All Untrashed</option>
-            <option value="continuing">Continuing</option>
+            <option value="ongoing">Ongoing</option>
             <option value="completed">Completed</option>
             <option value="trash">Trashed</option>
           </select>
@@ -33,7 +33,7 @@
       </td>
 
       <td
-        v-if="showingContinuing"
+        v-if="showingOngoing"
         class="projects-table_header-cell"
         :class="editModeActivated ? '' : 'projects-table_header-clickable'"
         @click="onSortClick('isStarted')"
@@ -43,7 +43,7 @@
       </td>
 
       <td
-        v-if="showingContinuing"
+        v-if="showingOngoing"
         class="projects-table_header-cell"
         :class="editModeActivated ? '' : 'projects-table_header-clickable'"
         @click="onSortClick('isBlocked')"

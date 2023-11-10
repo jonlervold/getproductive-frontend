@@ -43,7 +43,7 @@ const applyFilters = (
 ) => {
   let filteredProjects = [...sortedProjects];
 
-  if (statusDisplaySelection === "continuing") {
+  if (statusDisplaySelection === "ongoing") {
     filteredProjects = filteredProjects.filter((project) => !project.completed);
   } else if (statusDisplaySelection === "completed") {
     filteredProjects = filteredProjects.filter((project) => project.completed);

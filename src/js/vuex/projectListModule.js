@@ -10,7 +10,7 @@ export default {
     sortKey: "name",
     sortIsReversed: false,
 
-    statusDisplaySelection: "continuing",
+    statusDisplaySelection: "ongoing",
 
     showProjectDeleteConfirmModal: false,
     projectToDelete: {
@@ -83,17 +83,17 @@ export default {
       return state.statusDisplaySelection === "trash";
     },
 
-    showingContinuing: function (state) {
+    showingOngoing: function (state) {
       return state.statusDisplaySelection !== "completed";
     },
 
     showingCompleted: function (state) {
-      return state.statusDisplaySelection !== "continuing";
+      return state.statusDisplaySelection !== "ongoing";
     },
 
     newDisplayOptionClosesNewProjectRow: function (state) {
       return (
-        state.statusDisplaySelection === "continuing" ||
+        state.statusDisplaySelection === "ongoing" ||
         state.statusDisplaySelection === "all"
       );
     },
